@@ -1,7 +1,7 @@
 // server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const nicknameRouter = require('./routes/nickname');
+const nicknameRouter = require('./routes/User_routes');
 
 const app = express();
 const ip = '3.38.228.18';
