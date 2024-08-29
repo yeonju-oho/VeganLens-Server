@@ -16,10 +16,10 @@ app.get('/', (req, res) => {
 
 // ===== 이 밑에 라우터 추가하기 =====
 
-const nicknameRouter = require('./routes/nickname');
+const userRouter = require('./routes/User_routes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 
-app.use('/api', nicknameRouter); // '/api' 경로에 nicknameRouter를 연결
+app.use('/api', userRouter); // 
 app.use('/api', ingredientRoutes); 
 
 
