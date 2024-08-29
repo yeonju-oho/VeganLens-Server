@@ -1,24 +1,6 @@
 
 const mongoose = require('../db');
-
-const Categories = {
-    MILK: "milks",
-    EGG: "eggs",
-    SEAFOOD: "seafoods",
-    WHITEMEAT: "whitemeats",
-    REDMEAT: "redmeats",
-}
-
-// 식단 유형 정의
-const VeganTypes = {
-    VEGAN: 1,
-    LACTO: 2,
-    OVO: 3,
-    LACTO_OVO: 4,
-    PESCO: 5,
-    POLLO: 6,
-    FLEXITARIAN: 7
-};
+const { VeganTypes, Categories } = require('../models/define');
 
 // Define the schema for ingredients
 const ingredientSchema = new mongoose.Schema({

@@ -1,4 +1,5 @@
-// constants.js
+// define.js
+
 const VeganReasons = {
     HEALTH_CONCERNS: 1,
     ENVIRONMENTAL_HORMONES: 2,
@@ -19,4 +20,13 @@ const VeganTypes = {
     FLEXITARIAN: 7
 };
 
-module.exports = { VeganReasons, VeganTypes };
+const Categories = {
+    MILK: "milks",
+    EGG: "eggs",
+    SEAFOOD: "seafoods",
+    WHITEMEAT: "whitemeats",
+    REDMEAT: "redmeats",
+};
+
+
+module.exports = { VeganReasons, VeganTypes, Categories };

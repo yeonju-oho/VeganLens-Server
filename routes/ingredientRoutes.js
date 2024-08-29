@@ -1,7 +1,8 @@
 
 const express = require('express');
 const router = express.Router();
-const { Categories, models, findIngredient, checkIngredient, determineSuitableVeganTypes } = require('../models/IngredientModels');
+const { models, findIngredient, checkIngredient, determineSuitableVeganTypes } = require('../models/IngredientModels');
+const { Categories } = require('../models/define');
 
 // POST /add-ingredient - 새로운 성분을 특정 카테고리에 추가하는 API
 router.post('/add-ingredient', async (req, res) => {
