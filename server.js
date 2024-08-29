@@ -1,7 +1,6 @@
 // server.js
 const express = require('express');
 const bodyParser = require('body-parser');
-const nicknameRouter = require('./routes/User_routes');
 
 const app = express();
 const ip = '3.38.228.18';
@@ -15,8 +14,18 @@ app.get('/', (req, res) => {
   res.send(`This is \'Vegan Lens\' server.<br>Current time is: ${ct}`);
 });
 
+// ===== 이 밑에 라우터 추가하기 =====
 
-app.use('/api', nicknameRouter); // '/api' 경로에 nicknameRouter를 연결
+const userRouter = require('./routes/User_routes');
+const ingredientRoutes = require('./routes/ingredientRoutes');
+
+app.use('/api', userRouter); // 
+app.use('/api', ingredientRoutes); 
+
+
+
+
+
 
 // 서버 시작
 app.listen(port, () => {
