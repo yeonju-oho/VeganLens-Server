@@ -44,8 +44,35 @@ router.get('/check-ingredients', async (req, res) => {
         return res.status(400).json({ error: "원재료 목록이 필요합니다." });
     }
 
+
+    //수정
+    const results = {};
+    for (const [key, collection] of Object.entries(Categories)) {
+        const model = models[collection]; // 각 카테고리의 모델을 가져옵니다.
+        const modelItems = await model.find(); // 모델에서 모든 항목 검색
+
+        // 결과가 있는 경우 출력
+        if (modelItems.length > 0) {
+            modelItems.forEach(item => {
+                // items 문자열에 item.name이 포함되는지 확인합니다.
+                if (items.includes(item.name)) {
+                    results[item.name] = collection; // 결과에 추가
+                    console.log('성분:', item.name); // 각 성분 이름 출력
+                }
+            });
+        }
+    }
+
+    // 어느 비건 등급까지 먹을 수 있는지 결과 가져오기
+    const suitableVeganTypes = determineSuitableVeganTypes(results);
+
+    res.json({
+        ingredients: results,
+        suitableVeganTypes: suitableVeganTypes
+    });
+
     // 콤마로 구분된 경우 문자열을 배열로 변환
-    const ingredientList = items.split(',').map(item => item.trim());
+    /*const ingredientList = items.split(',').map(item => item.trim());
 
     try {
         // 각 원재료를 검사하여 결과를 저장
@@ -68,6 +95,7 @@ router.get('/check-ingredients', async (req, res) => {
         console.error('Error checking ingredients:', error);
         res.status(500).json({ error: "서버 오류가 발생했습니다." });
     }
+    */
 });
 
 

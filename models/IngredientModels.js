@@ -18,22 +18,23 @@ const models = {};
 for (const [key, value] of Object.entries(Categories)) {
     models[value] = mongoose.model(capitalizeFirstLetter(key), ingredientSchema, value);
 }
-
 // 공통 검색 로직을 수행하는 헬퍼 함수
 async function findIngredientInModel(ingredient, model) {
     const escapeRegExp = (string) => {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); // 특수문자 이스케이프
     };
 
     const escapedIngredient = escapeRegExp(ingredient);
-    const regexPattern = `^${escapedIngredient.split('').join('\\s*')}$`;
+    // 단어 간의 공백을 허용하는 패턴으로 수정 (전체 단어 기준으로)
+    const regexPattern = `\\b${escapedIngredient.replace(/\s+/g, '\\s*')}\\b`; 
 
     return await model.findOne({
         name: {
-            $regex: new RegExp(regexPattern, 'i')
+            $regex: new RegExp(regexPattern, 'i') // 대소문자 무시
         }
     });
 }
+
 
 // 입력 성분이 모델에 포함되는지 검사하는 함수
 async function findIngredient(ingredient) {
