@@ -16,7 +16,8 @@ router.post('/add-diary', async (req, res) => {
         }
 
         const newDiary = new Diary({
-            username: user._id,
+            username,
+            userId: user._id,
             title,
             content,
             images: images ? images.slice(0, 5) : [],  // 최대 5개의 이미지만 저장
