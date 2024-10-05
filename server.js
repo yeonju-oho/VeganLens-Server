@@ -8,6 +8,7 @@ const port = 3000;
 
 app.use(bodyParser.json());
 
+
 // 서버 실행시 루트 경로에서 간단한 메시지를 반환하도록 설정
 app.get('/', (req, res) => {
   const ct = new Date().toLocaleString(); // 현재 시간을 로컬 시간대 문자열로 변환
@@ -19,11 +20,13 @@ app.get('/', (req, res) => {
 const userRouter = require('./routes/User_routes');
 const diaryRouter = require('./routes/Diary_routes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
+const imageUploadRouter = require('./routes/imageUpload');
 
 app.use('/api', userRouter); // 
 app.use('/api', ingredientRoutes);
 app.use('/api', diaryRouter);
-
+app.use('/api/uploads', imageUploadRouter);
+app.use('/uploads', express.static('uploads'));
 
 
 
