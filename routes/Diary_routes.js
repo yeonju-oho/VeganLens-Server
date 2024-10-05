@@ -42,23 +42,40 @@ router.get('/public-diaries', async (req, res) => {
     }
 });
 
-// 특정 사용자의 일기 조회 API
 router.get('/user-diaries/:username', async (req, res) => {
     const { username } = req.params;
+    const { date } = req.query;
 
     try {
+        // 유저 존재 확인
         const user = await User.findOne({ username });
         if (!user) {
             return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
         }
 
-        const diaries = await Diary.find({ username: user._id }).populate('username', 'username');
+        // 날짜 필터링 조건 설정 (하루 동안 작성된 일기 필터링)
+        let dateFilter = {};
+        if (date) {
+            const startOfDay = new Date(new Date(date).setHours(0, 0, 0, 0)); // 시작일자 00:00:00
+            const endOfDay = new Date(new Date(date).setHours(23, 59, 59, 999)); // 종료일자 23:59:59
+            dateFilter = { $gte: startOfDay, $lte: endOfDay }; // 하루 필터링
+        }
+
+        // 조건에 맞는 일기 조회 (username과 createdAt 필터링 추가)
+        const filter = { username: user._id };
+        if (date) {
+            filter.publishedAt = dateFilter;
+        }
+
+        const diaries = await Diary.find(filter).populate('username', 'username');
+
         res.json({ success: true, diaries });
     } catch (error) {
         console.error('Error fetching user diaries:', error);
         res.status(500).json({ error: '서버 오류 발생' });
     }
 });
+
 
 // 일기 수정 API
 router.patch('/update-diary/:id', async (req, res) => {
