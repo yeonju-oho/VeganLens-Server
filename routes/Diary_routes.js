@@ -62,7 +62,7 @@ router.get('/user-diaries/:username', async (req, res) => {
         }
 
         // 조건에 맞는 일기 조회 (username과 createdAt 필터링 추가)
-        const filter = { username: user._id };
+        const filter = { username };
         if (date) {
             filter.publishedAt = dateFilter;
         }
