@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User_models');  // 모델 경로 수정
 const { VeganReasons, VeganTypes } = require('../models/define');
+
 // 사용자 추가 API
 router.post('/add-user', async (req, res) => {
     const { username, isAdmin, profilePicture, bio, reason, veganType } = req.body;

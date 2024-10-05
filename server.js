@@ -17,10 +17,12 @@ app.get('/', (req, res) => {
 // ===== 이 밑에 라우터 추가하기 =====
 
 const userRouter = require('./routes/User_routes');
+const diaryRouter = require('./routes/Diary_routes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 
 app.use('/api', userRouter); // 
-app.use('/api', ingredientRoutes); 
+app.use('/api', ingredientRoutes);
+app.use('/api', diaryRouter);
 
 
 
