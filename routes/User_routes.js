@@ -75,4 +75,23 @@ router.patch('/update-user/:username', async (req, res) => {
   }
 });
 
+// 사용자 정보 조회 API (username으로 조회)
+router.get('/get-user/:username', async (req, res) => {
+  const { username } = req.params;
+
+  try {
+      // 유저 존재 확인
+      const user = await User.findOne({ username });
+      if (!user) {
+          return res.status(404).json({ success: false, message: '사용자를 찾을 수 없습니다.' });
+      }
+
+      // 유저 정보 반환
+      res.json({ success: true, user });
+  } catch (error) {
+      console.error('Error fetching user:', error);
+      res.status(500).json({ error: '서버 오류 발생' });
+  }
+});
+
 module.exports = router;

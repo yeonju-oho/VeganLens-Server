@@ -11,7 +11,8 @@ const diarySchema = new Schema({
   publishedAt: { type: Date, default: Date.now },  // 게시일
   likes: [{ type: Schema.Types.ObjectId, ref: 'User', default: [] }],  // 좋아요 수
   isPublic: { type: Boolean, default: true }  // 공개/비공개 정보
-});
+}, { timestamps: true });  // timestamps 추가
+
 
 const Diary = mongoose.model('Diary', diarySchema);
 
