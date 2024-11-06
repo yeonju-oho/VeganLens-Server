@@ -1,0 +1,4 @@
+# Ignore uploads folder inside routes
+/routes/uploads/
+
+.vscode/

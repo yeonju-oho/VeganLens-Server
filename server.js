@@ -1,6 +1,7 @@
 // server.js
 const express = require('express');
 const bodyParser = require('body-parser');
+const path = require('path'); 
 
 const app = express();
 const ip = '3.38.228.18';
@@ -22,13 +23,13 @@ const diaryRouter = require('./routes/Diary_routes');
 const ingredientRoutes = require('./routes/ingredientRoutes');
 const imageUploadRouter = require('./routes/imageUpload');
 
-app.use('/api', userRouter); // 
+app.use('/api', userRouter); 
 app.use('/api', ingredientRoutes);
 app.use('/api', diaryRouter);
-app.use('/api/uploads', imageUploadRouter);
-app.use('/uploads', express.static('uploads'));
+app.use('/api', imageUploadRouter); 
 
-
+// uploads 폴더를 정적 파일 경로로 설정. (이미지 파일 저장 됨)
+app.use('/uploads', express.static(path.join(__dirname, 'routes', 'uploads')));
 
 
 
